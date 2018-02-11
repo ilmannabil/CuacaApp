@@ -1,6 +1,9 @@
 package com.example.ilman.cuaca.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.ilman.cuaca.DetailFragment;
+import com.example.ilman.cuaca.MainActivity;
 import com.example.ilman.cuaca.R;
 import com.example.ilman.cuaca.holder.CuacaHolder;
 import com.example.ilman.cuaca.model.Cuaca;
@@ -44,18 +49,28 @@ public class CuacaAdapter extends RecyclerView.Adapter<CuacaHolder>{
             @Override
             public void onClick(View view) {
                 String time = cuacalist.getTime();
-                Log.d("TESTT",time);
+                String status = cuacalist.getStatus();
+
+                FragmentManager fm= ((MainActivity) context).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction= fm.beginTransaction();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("time",time);
+                bundle.putString("status",status);
+                DetailFragment fragment= new DetailFragment();
+                fragment.setArguments(bundle);
+
+                fragmentTransaction.replace(R.id.framelayout_mainactivity,fragment).addToBackStack(null);
+                fragmentTransaction.commit();
+//                //For Pass Parameter to other fragment
+////                Bundle bundle = new Bundle();
+////                bundle.putString("idOrder", String.valueOf(id));
+//                DetailFragment fragment = new DetailFragment();
+////                fragment.setArguments(bundle);
+//
             }
         });
 
-//        holder.itemView.findViewById(R.id.cvWeather).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String status = cuacalist.getStatus();
-//                Toast.makeText(context,"status = "+status,Toast.LENGTH_SHORT);
-//                Log.d("TEST",status);
-//            }
-//        });
     }
 
     @Override
