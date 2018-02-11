@@ -73,7 +73,7 @@ public class CuacaFragment extends Fragment {
 
         RecyclerView recyclerView= (RecyclerView) view.findViewById(R.id.recycleList);
 
-        adapterCuaca = new CuacaAdapter(mCuacaList);
+        adapterCuaca = new CuacaAdapter(mCuacaList,getContext());
         recyclerView.setAdapter(adapterCuaca);
 
         LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
@@ -119,6 +119,8 @@ public class CuacaFragment extends Fragment {
 
                         tvTime.setText(time);
                         tvDayDate.setText(date);
+                        Log.d("TEST Before", String.valueOf(tvTime.getText()));
+                        Log.d("TEST Before", String.valueOf(tvDayDate.getText()));
 
 
                     } catch (ParseException e) {
@@ -156,6 +158,7 @@ public class CuacaFragment extends Fragment {
                         imgCuaca.setImageResource(R.drawable.sun_large);
                     }
 
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -170,10 +173,8 @@ public class CuacaFragment extends Fragment {
 
         Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
 
-//        String asd= "asd";
-//        Log.d("TEST", String.valueOf(asd));
-////        tvTime.setText(asd);
-
+        Log.d("TEST", String.valueOf(tvTime.getText()));
+        Log.d("TEST", String.valueOf(tvDayDate.getText()));
 
         return view;
 
